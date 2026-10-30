@@ -1,0 +1,14 @@
+schemaVersion: 8
+version: v<主版本>.<次版本>
+title: <需求版本标题>
+phase: discovery
+state: active
+owners:
+  product: <产品负责人>
+  ui: <UI负责人，可在未进入UI时删除>
+  frontend: <前端负责人，可在轨道不适用时删除>
+  backend: <后端负责人，可在轨道不适用时删除>
+  testhub: <TestHub流程负责人，可在未进入TestHub流程时删除>
+createdAt: <YYYY-MM-DD>
+updatedAt: <YYYY-MM-DD>
+blockedBy: []

@@ -1,0 +1,17 @@
+schemaVersion: 1
+version: 0.35.0
+configSchemaVersion: 20
+contentHashAlgorithm: sha256
+contentHashPaths:
+- README.md
+- harness.yaml
+- workflow
+- skills
+- rules
+- template
+- tools
+- hooks
+- ../project-harness-template
+- ../AGENTS.md
+- ../docs/core-maintenance.md
+contentHash: 52681b010f3687f5a0d2e2ec26d5bcfd27327162253ba1ebbc2ed65941387bcc

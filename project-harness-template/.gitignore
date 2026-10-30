@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+.venv/
+# 仅提交 .env.example；真实连接信息只保存在本地。
+.env.local

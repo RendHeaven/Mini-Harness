@@ -1,0 +1,32 @@
+schemaVersion: 20
+kind: project
+core:
+  localPath: ../Atlas-Harness
+  version: 0.35.0
+  revision: <40 位 Core Git commit>
+  contentHash: <Core version.lock.contentHash>
+project:
+  id: <项目 ID>
+  name: <项目名称>
+  demandCycleRoot: .harness/demandCycle
+  historyRoot: .harness/history
+  serviceCatalog: .harness/projectContext/services.yaml
+  prototypeRoot: 原型仓库
+  gateFile: Gate.yaml
+cycle:
+  manifest: manifest.yaml
+product:
+  root: product
+  discovery: discovery.md
+  prd: '{version}-prd.md'
+  prdReview: prd-review.md
+  devGuide: dev-guide.md
+ui:
+  root: ui
+  handoff: ui-handoff.md
+development:
+  root: develop
+  execution: execution.yaml
+  frontend: frontend
+  backend: backend
+  testhub: testhub

@@ -1,0 +1,22 @@
+schemaVersion: 1
+services:
+  frontend-console:
+    type: frontend
+    repository: https://example.invalid/frontend-console.git
+    localPath: ../frontend-console
+    defaultBranch: develop
+    responsibility: <服务职责>
+    contextPath: .harness/projectContext.md
+    contractPaths: [docs/interfaces, src/services]
+    dataOwnership: []
+    dependsOn: [backend-service]
+  backend-service:
+    type: backend
+    repository: https://example.invalid/backend-service.git
+    localPath: ../backend-service
+    defaultBranch: develop
+    responsibility: <后端服务职责>
+    contextPath: .harness/projectContext.md
+    contractPaths: [docs/interfaces, src/main/java]
+    dataOwnership: [<数据库或外部资源>]
+    dependsOn: []

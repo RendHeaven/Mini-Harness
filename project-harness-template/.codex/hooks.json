@@ -1,0 +1,29 @@
+{
+  "description": "采集项目 Codex 交互摘要、Atlas 资源与 Token 使用情况。",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -B -X utf8 -c \"import os, runpy; from pathlib import Path; root=os.environ.get('HARNESS_PROJECT_ROOT'); roots=[Path(root)] if root else [Path.cwd(), *Path.cwd().parents]; p=next((d/'.harness/hooks/usage_hook.py' for d in roots if (d/'.harness/harness.yaml').is_file()), None); p and runpy.run_path(str(p), run_name='__main__')\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -EncodedCommand JgAgAHsAIAAkAHAAcgBvAGoAZQBjAHQAUgBvAG8AdAAgAD0AIABpAGYAIAAoACQAZQBuAHYAOgBIAEEAUgBOAEUAUwBTAF8AUABSAE8ASgBFAEMAVABfAFIATwBPAFQAKQAgAHsAIAAkAGUAbgB2ADoASABBAFIATgBFAFMAUwBfAFAAUgBPAEoARQBDAFQAXwBSAE8ATwBUACAAfQAgAGUAbABzAGUAIAB7ACAAZwBpAHQAIAByAGUAdgAtAHAAYQByAHMAZQAgAC0ALQBzAGgAbwB3AC0AdABvAHAAbABlAHYAZQBsACAAfQA7ACAAaQBmACAAKAAkAHAAcgBvAGoAZQBjAHQAUgBvAG8AdAApACAAewAgACYAIAAoAEoAbwBpAG4ALQBQAGEAdABoACAAJABwAHIAbwBqAGUAYwB0AFIAbwBvAHQAIAAnAC4AaABhAHIAbgBlAHMAcwAvAGgAbwBvAGsAcwAvAHUAcwBhAGcAZQBfAGgAbwBvAGsALgBjAG0AZAAnACkAIAB9ACAAfQA=",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -B -X utf8 -c \"import os, runpy; from pathlib import Path; root=os.environ.get('HARNESS_PROJECT_ROOT'); roots=[Path(root)] if root else [Path.cwd(), *Path.cwd().parents]; p=next((d/'.harness/hooks/usage_hook.py' for d in roots if (d/'.harness/harness.yaml').is_file()), None); p and runpy.run_path(str(p), run_name='__main__')\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -EncodedCommand JgAgAHsAIAAkAHAAcgBvAGoAZQBjAHQAUgBvAG8AdAAgAD0AIABpAGYAIAAoACQAZQBuAHYAOgBIAEEAUgBOAEUAUwBTAF8AUABSAE8ASgBFAEMAVABfAFIATwBPAFQAKQAgAHsAIAAkAGUAbgB2ADoASABBAFIATgBFAFMAUwBfAFAAUgBPAEoARQBDAFQAXwBSAE8ATwBUACAAfQAgAGUAbABzAGUAIAB7ACAAZwBpAHQAIAByAGUAdgAtAHAAYQByAHMAZQAgAC0ALQBzAGgAbwB3AC0AdABvAHAAbABlAHYAZQBsACAAfQA7ACAAaQBmACAAKAAkAHAAcgBvAGoAZQBjAHQAUgBvAG8AdAApACAAewAgACYAIAAoAEoAbwBpAG4ALQBQAGEAdABoACAAJABwAHIAbwBqAGUAYwB0AFIAbwBvAHQAIAAnAC4AaABhAHIAbgBlAHMAcwAvAGgAbwBvAGsAcwAvAHUAcwBhAGcAZQBfAGgAbwBvAGsALgBjAG0AZAAnACkAIAB9ACAAfQA=",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

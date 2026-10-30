@@ -1,0 +1,28 @@
+# 放置到项目 Harness：.harness/projectContext/testhub.yaml
+# 仅保存非敏感配置。Harness 生命周期接口可匿名调用；无需 TestHub 账号、密码或 Token。
+# TestHub 是需自建或适配的外部服务；接口协议以 Core tools/sync_testhub_markdown.py 的 /api/ai-ui-testing/ 路径为准。
+baseUrl: https://<testhub-host>
+externalProjectId: <项目稳定ID>
+projectName: <TestHub展示名称>
+projectPath: <Harness或GitLab项目路径>
+repositoryUrl: https://<仓库地址>
+defaultBranch: main
+sourceRef: refs/heads/main
+caseSetKey: <稳定用例集键>
+caseSetName: <TestHub展示用例集名称>
+externalDocumentId: <稳定文档ID>
+documentPath: testhub/cases.md
+schemaVersion: external-harness-markdown-v1
+defaultEnvironment: test
+# 可选。TestHub 在 Run 进入终态时 POST 到此地址；Harness 必须按 run_id 去重，并在 15 秒内返回 2xx。
+callbackUrl: https://<harness-host>/callbacks/testhub-aiui
+environments:
+  test:
+    homepageUrl: https://<被测系统测试环境>
+    allowWrite: true
+  uat:
+    homepageUrl: https://<被测系统UAT环境>
+    allowWrite: true
+  prod:
+    homepageUrl: https://<被测系统生产环境>
+    allowWrite: false

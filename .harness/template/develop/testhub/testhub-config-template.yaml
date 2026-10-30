@@ -1,0 +1,18 @@
+baseUrl: https://<testhub-host>
+externalProjectId: <项目稳定ID>
+projectName: <TestHub展示名称>
+projectPath: <Harness或GitLab项目路径>
+repositoryUrl: https://<仓库地址>
+defaultBranch: main
+sourceRef: refs/heads/main
+caseSetKey: <稳定用例集键>
+caseSetName: <TestHub展示用例集名称>
+externalDocumentId: <稳定文档ID>
+documentPath: testhub/cases.md
+schemaVersion: external-harness-markdown-v1
+defaultEnvironment: test
+callbackUrl: https://<harness-host>/callbacks/testhub-aiui
+environments:
+  test:
+    homepageUrl: https://<被测系统测试环境>
+    allowWrite: true

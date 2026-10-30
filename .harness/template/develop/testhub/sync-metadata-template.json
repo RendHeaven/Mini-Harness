@@ -1,0 +1,20 @@
+{
+  "external_project_id": "<项目稳定ID>",
+  "project_name": "<TestHub展示名称>",
+  "version": "v<主版本>.<次版本>",
+  "source_ref": "refs/heads/main",
+  "commit_sha": "<40位Git commit>",
+  "case_set_key": "<稳定用例集键>",
+  "case_set_name": "<TestHub展示用例集名称>",
+  "external_document_id": "<稳定文档ID>",
+  "document_path": "testhub/cases.md",
+  "schema_version": "external-harness-markdown-v1",
+  "default_environment": "test",
+  "homepage_url": "https://<被测系统测试环境>",
+  "environments": {
+    "test": {
+      "homepage_url": "https://<被测系统测试环境>",
+      "allow_write": true
+    }
+  }
+}

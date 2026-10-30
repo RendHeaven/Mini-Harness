@@ -1,0 +1,7 @@
+schemaVersion: 20
+kind: core
+core:
+  version: "0.35.0"
+  manifestSchemaVersion: 8
+  serviceCatalogSchemaVersion: 1
+  executionSchemaVersion: 7

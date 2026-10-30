@@ -1,0 +1,61 @@
+schemaVersion: 7
+version: v<主版本>.<次版本>
+sources:
+  prd: &id001
+    path: <PRD项目相对路径>
+    changes: [] # 已消费的 CHG 编号；首次追踪无改动为空，未知范围为 null
+  prototype: &id002
+    path: 原型仓库
+    changes: [] # 已消费的 UI-ADJ 路径、Mock日志#CHG-编号或补建记录#iteration-序号
+services:
+  frontend-service:
+    type: frontend
+    repository: <与services.yaml一致>
+    branch: develop-v<主版本>.<次版本>
+    remote: origin
+    baseRevision: <40位小写Git commit>
+    finalRevision: <40位小写Git commit或空字符串>
+    status: planned
+  backend-service:
+    type: backend
+    repository: <与services.yaml一致>
+    branch: develop-v<主版本>.<次版本>
+    remote: origin
+    baseRevision: <40位小写Git commit>
+    finalRevision: <40位小写Git commit或空字符串>
+    status: planned
+tracks:
+  frontend:
+    applicable: true
+    services:
+    - frontend-service
+    status: planned
+    uiStages: required
+    sources:
+      prd: *id001
+      prototype: *id002
+    uiScopeReason: ''
+  backend:
+    applicable: true
+    services:
+    - backend-service
+    status: planned
+    sources:
+      prd: *id001
+      prototype: *id002
+  testhub:
+    applicable: true
+    services: []
+    status: planned
+contracts:
+- id: CONTRACT-001
+  ownerService: backend-service
+  consumers:
+  - frontend-service
+  path: <后端服务仓库内契约路径>
+  baselineRevision: <40位小写Git commit>
+  baselineSha256: <64位小写SHA256>
+  status: baseline
+releaseOrder:
+- backend-service
+- frontend-service

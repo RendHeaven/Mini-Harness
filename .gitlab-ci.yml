@@ -1,0 +1,30 @@
+stages:
+  - test
+
+variables:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONIOENCODING: "utf-8"
+
+default:
+  image: python:3.12-bookworm
+  before_script:
+    - python -m pip install -r .harness/tools/requirements.txt
+    - python -m pip install uv
+    - git --version
+
+atlas-tests:
+  stage: test
+  script:
+    - python -B .harness/tools/sync_template_fragments.py --check
+    - python -B .harness/tools/test_sync_template_fragments.py
+    - python -B .harness/tools/test_validate_harness.py
+    - python -B .harness/tools/test_role_protocol.py
+    - python -B .harness/tools/test_prd_change_records.py
+    - python -B .harness/tools/test_execution_roles.py
+    - python -B .harness/tools/test_asset_io.py
+    - python -B .harness/tools/test_package_prototype.py
+    - python -B .harness/hooks/test_usage_hook.py
+    - python -B .harness/hooks/test_project_hook.py
+    - uv run project-harness-template/.harness/tools/db_tool.py --help
+    - uv run .harness/tools/test_project_db_tool.py
+    - python -B .harness/tools/validate_harness.py --core-only

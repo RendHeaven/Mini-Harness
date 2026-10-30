@@ -1,0 +1,162 @@
+# 专项旁路记录示例，不是 Manifest / Execution / Gate Schema，也不是自动运行器配置。
+# 按 workflow 执行并填写真实结果，当前记录使用 recordVersion 2。
+recordVersion: 2
+project: PROJECT_ID
+cycle: EXISTING_CYCLE
+status: partial # partial / completed；必需验证有缺口不能 completed
+createdAt: 'YYYY-MM-DDTHH:mm:ss+08:00'
+updatedAt: 'YYYY-MM-DDTHH:mm:ss+08:00'
+source:
+  mode: source-derived
+  service: SERVICE_ID
+  revision: SOURCE_GIT_SHA
+  dirty: false
+  runtimeRevision: null
+  runtimeUrl: null
+  evidenceIndex: SOURCE_INDEX_PATH
+  runtimeBaseline: null # 可用时记录独立版本、角色、数据、采集条件；不能用源码版本代填
+  conflicts: []
+nodes:
+  source: planned # planned / done / partial / blocked
+  inventory: planned
+  capture: planned
+  spec: planned
+  build: planned
+  verification: planned
+  handoff: planned
+requiredChecks: [structure, interaction, independence, visualFidelity]
+scope:
+  included: []
+  excluded: []
+  viewport: {width: 1440, height: 800}
+states:
+  - id: PAGE_STATE_ID
+    page: PAGE_ID
+    precondition: 前置条件
+    action: 用户操作
+    expected: 预期可见变化
+    provenance: source-inferred # observed / source-inferred / assumed
+    evidence: []
+    prototype: pages/PAGE_FILE.html
+    status: planned # planned / implemented / verified / deferred
+    verification: null
+validation:
+  structure: {status: not_verified, evidence: []}
+  interaction: {status: not_verified, evidence: []}
+  independence: {status: not_verified, evidence: []}
+  visualFidelity: {status: not_verified, reason: 未采集同版本运行基线, evidence: []}
+# source / scope / states 是事实来源；以下条目引用状态 ID，不再复制业务规格。
+loop:
+  runId: RECONSTRUCTION_RUN_ID
+  resumedFrom: null # 续跑时填写原记录路径，不重写原记录或补造历史执行
+  requestMode: full # full / single-node
+  requestedNode: null # single-node 时填字符串 '01'..'07'
+  status: running # running / paused / finished；finished 可对应整体 partial
+  activeNode: '01'
+  activeWorkItemId: null # 全局来源/盘点/回归/交付可为空
+  baselineId: BASELINE_ID
+  baselineHistory: [] # 来源变化时追加旧 baselineId、来源索引路径/摘要、失效项及原因
+  inputFingerprint:
+    sourceIndexSha256: null # 含固定源码版本、dirty 文件摘要和独立运行证据索引
+    scopeSha256: null # 范围、状态矩阵及 requiredChecks 的规范化摘要
+  limits:
+    maxConsecutiveFixFailures: 2
+    maxConsecutiveNoProgress: 2
+    maxNodeExecutionsPerWorkItem: 20
+    maxGlobalNodeExecutions: 20 # 来源/盘点/全局回归/07收尾OCR；仅07封包写报告豁免
+  globalNodeExecutions: 0 # 统计 workItemId:null 的前述动作，含失败OCR尝试；续跑未知时null并先复核
+  globalConsecutiveNoProgress: 0
+  terminalReason: null
+workItems:
+  - id: WORK_ITEM_ID
+    stateIds: [PAGE_STATE_ID]
+    dependsOn: [] # 例如 {workItemId: BASE_LAYOUT, requiredChecks: [structure, interaction]}
+    artifactPaths: [pages/PAGE_FILE.html] # 补齐依赖的共享样式、脚本、Mock、库等
+    currentNode: '03'
+    status: pending # pending / running / verified / partial / blocked
+    inputFingerprint:
+      baselineId: BASELINE_ID
+      specSha256: null
+      artifactHashes: {} # 原型根内相对路径: SHA256
+    nodeExecutions: 0 # 含回流/失败；续跑沿用；计数未知时填 null 并停止该项自动重试
+    consecutiveNoProgress: 0
+    checks:
+      structure: {status: not_verified, evidence: [], checkedAgainst: null}
+      interaction: {status: not_verified, evidence: [], checkedAgainst: null}
+      independence: {status: not_verified, evidence: [], checkedAgainst: null}
+      visualFidelity: {status: not_verified, evidence: [], checkedAgainst: null}
+    # 每个 passed 的 checkedAgainst 必须有 baselineId、specSha256、artifactHashes；摘要对应实际被检查输入。
+    issueIds: []
+    stopReason: null
+regression:
+  status: not_verified # 全局关联回归，队列无可运行项时由06汇总；不能用单项通过替代
+  workItemIds: []
+  evidence: []
+  checkedAgainst: null # baselineId、各规格摘要和共享资源/原型文件摘要
+evidenceReuse: [] # 基线改变时未受影响项的适用性证明；不修改原checks.checkedAgainst
+# - fromBaselineId: OLD_BASELINE_ID
+#   toBaselineId: BASELINE_ID
+#   workItemId: WORK_ITEM_ID
+#   checkNames: [structure, interaction]
+#   sourceDiffEvidence: [] # 独立来源索引/局部差异及未影响该项的证据
+#   unchangedSpecSha256: SPEC_SHA256
+#   artifactHashes: {} # 必须与原检查及当前实际文件相同
+#   reviewedAt: 实际秒级时间与时区
+iterations: [] # 只追加真实执行；每条包含以下字段，不预填虚构成功轮次
+# - sequence: 1
+#   executedAt: 实际秒级时间与时区
+#   workItemId: WORK_ITEM_ID 或 null
+#   node: '03'
+#   action: capture # 07使用final-review或handoff，区分审核计数与封包
+#   inputFingerprint: {baselineId: BASELINE_ID, sourceIndexSha256: HASH, specSha256: HASH_OR_NULL, artifactHashes: {}}
+#   outputFingerprint: {} # 对应本次真实输出文件与摘要
+#   result: done # done / partial / blocked；不是检查状态 passed
+#   changedArtifacts: []
+#   affectedWorkItems: []
+#   evidence: []
+#   reusedIterations: [] # 被跳过节点的有效记录引用及摘要，不算新增执行
+#   nextAction: {targetNode: '04', workItemId: WORK_ITEM_ID, reason: 证据可进入规格整理}
+# 单阶段结束/暂停/交付时 targetNode:null，在reason中记录建议去向或恢复条件。
+issues: [] # 同根因使用稳定causeKey，复发重开；误报保留排除依据
+# - id: ISSUE_ID
+#   causeKey: 稳定根因标识
+#   category: implementation # implementation / specification / evidence / source / decision
+#   origin: prototype # prototype / inherited / unknown
+#   workItemIds: [WORK_ITEM_ID]
+#   status: open # open / resolved / deferred / dismissed
+#   evidence: []
+#   consecutiveFixFailures: 0 # 仅修复后复测失败累加；OCR根因须审核复核关闭后归零；计数未知时null且不自动重试
+#   resolution: null
+differences: []
+unresolved: []
+finalReview:
+  required: true # 07必需收尾步骤；完成审核前保持pending
+  status: pending # pending / passed / changes_requested / not_verified / not_applicable
+  tool: open-code-review
+  toolVersion: null
+  mode: null # cli / delegation；必须实际调用OCR，普通人工阅读不算
+  repositoryRoot: null
+  startBaseline:
+    gitRef: null
+    workspaceManifest: null # 指向dirty起点文件清单、摘要和必要局部差异
+    manifestSha256: null
+  candidateFiles: [] # 本轮累计新增/修改/删除/未跟踪的原型差异；记录path/status/起点和最终sha256
+  reviewedFiles: [] # 逐项关联适用规则、结果及当前摘要；未变项复用须给有效审核记录
+  excludedFiles: [] # 每项path/reason/替代核验；工具跳过自写代码不能算合理排除
+  unreviewedFiles: [] # 失败/截断/尚未核实项，非空时不得passed
+  coverage: {total_files: 0, reviewed_files: 0, skipped_files: 0, coverage_rate: null}
+  inputFingerprint:
+    baselineId: BASELINE_ID
+    scopeSha256: null # 最终累计候选清单摘要
+    specAndAcceptanceSha256: null
+    artifactHashes: {} # 被审文件最终摘要；删除文件在candidateFiles保留起点摘要
+  report: {path: null, sha256: null}
+  evidence: [] # 实际命令/退出状态、原始结果；delegation还含preview/rule与范围对账
+  issueIds: [] # 复用既有issues和causeKey，不另开可清零的独立问题池
+  reason: null # not_verified/changes_requested/无适用变更时说明原因及恢复条件
+# 报告与纯状态回执是审核输出，不纳入自身候选清单；被审输入改变则原passed失效。
+# 历次收尾审核记录追加到iterations，原始报告按轮次保留；工具过滤为0文件不能当无变更。
+handoff:
+  entry: index.html
+  previewCommand: 待填写实际命令
+  gate: 未确认；沿用现有 UI Gate 协议

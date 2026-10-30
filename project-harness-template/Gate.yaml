@@ -1,0 +1,6 @@
+schemaVersion: 2
+projectId: <与项目配置一致>
+timezone: Asia/Shanghai
+cycles: {}
+# 四角色由 role_gates.py 初始化；确认时保存 confirmedGit.name / email 及历史确认记录；来源为 path + changes，不复制产品内容。
+# 身份来自项目 Harness 生效 Git 配置；未确认时 confirmedGit 为 null。

@@ -491,7 +491,7 @@ def default_project_config() -> HarnessConfig:
     return HarnessConfig(
         20,
         "project",
-        Path("../Atlas-Harness"),
+        Path("../Mini-Harness"),
         "0.35.0",
         "0" * 40,
         "0" * 64,
@@ -725,12 +725,12 @@ def validate_core_pin(
         result.error("项目 Core contentHash 与 version.lock 不一致")
     revision = _git_output(core_root, "rev-parse", "HEAD")
     if revision and revision != config.core_revision:
-        result.error("项目 Core revision 与 Atlas-Harness HEAD 不一致")
+        result.error("项目 Core revision 与 Mini-Harness HEAD 不一致")
     dirty = _git_output(core_root, "status", "--porcelain")
     if dirty and not allow_dirty_core:
-        result.error("Atlas-Harness 工作区不干净，不能作为正式项目锁定 Core")
+        result.error("Mini-Harness 工作区不干净，不能作为正式项目锁定 Core")
     elif dirty:
-        result.warn("Atlas-Harness 工作区不干净；仅按开发模式校验，结果不可作为发布锁")
+        result.warn("Mini-Harness 工作区不干净；仅按开发模式校验，结果不可作为发布锁")
     entries = data.get("contentHashPaths")
     if isinstance(entries, list) and all(isinstance(item, str) for item in entries):
         current = (
@@ -739,7 +739,7 @@ def validate_core_pin(
             else compute_git_content_hash(core_root, config.core_revision, entries, result)
         )
         if current != config.core_content_hash:
-            result.error("Atlas-Harness 指定 revision 内容与项目锁定 contentHash 不一致")
+            result.error("Mini-Harness 指定 revision 内容与项目锁定 contentHash 不一致")
 
 
 def validate_service_catalog(project_root: Path, config: HarnessConfig, result: Result) -> None:

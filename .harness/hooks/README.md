@@ -1,4 +1,4 @@
-# Atlas-Harness 交互采集
+# Mini-Harness 交互采集
 
 通用 Collector 将一次 Codex 提问保存为一条交互快照：
 
@@ -31,7 +31,7 @@ Collector 不保存模型、权限模式、匿名 actor、指纹、原始 payloa
 - cached input Token 和 `cached / input` 命中率。
 
 只分析本轮 transcript 中的工具输入。目录扫描、工具输出偶然包含的文件名、
-不存在的路径以及 Atlas-Harness 之外的文件都不会计入资源。
+不存在的路径以及 Mini-Harness 之外的文件都不会计入资源。
 
 transcript 不可读、格式变化或 Token 计数回退时，项目、Git、输入和输出仍会
 保存；资源数组为空，Token/缓存字段为 `null`。诊断日志不含问答正文。

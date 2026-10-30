@@ -757,7 +757,7 @@ def post_batch(endpoint: str, interactions: list[dict[str, Any]]) -> dict[str, A
         data=body,
         headers={
             "Content-Type": "application/json; charset=utf-8",
-            "User-Agent": f"Atlas-Harness/{COLLECTOR_VERSION}",
+            "User-Agent": f"Mini-Harness/{COLLECTOR_VERSION}",
         },
         method="POST",
     )

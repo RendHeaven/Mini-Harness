@@ -1,8 +1,8 @@
-# Atlas Harness
+# Mini Harness
 
 > **让团队的研发方式，成为 Agent 的工作方式。**
 
-**Atlas 是团队通用的 Harness Core。** 它把产品、UI、前端、后端、测试与缺陷修复的协作方式，整理成 Agent 可执行的角色工作流、阶段技能、规则、产物模板和校验工具。项目只需锁定一个 Core 版本，就能让 AI 按团队约定的阶段推进需求，并把每一步的产物、证据和确认留在仓库中。
+**Mini-Harness 是团队通用的 Harness Core。** 它把产品、UI、前端、后端、测试与缺陷修复的协作方式，整理成 Agent 可执行的角色工作流、阶段技能、规则、产物模板和校验工具。项目只需锁定一个 Core 版本，就能让 AI 按团队约定的阶段推进需求，并把每一步的产物、证据和确认留在仓库中。
 
 **8 条工作流 · 4 道独立角色 Gate · 项目精确锁定 Core · 机器校验 + 人工确认**
 
@@ -12,9 +12,9 @@
 
 每个团队都有自己的研发方式：需求怎样从探索走到 PRD，原型由谁维护，前后端按什么顺序设计、实现和自测，交付需要哪些证据，最后由谁确认。这些经验如果只留在人的脑子里，Agent 每次都要从头猜。
 
-Atlas 的做法是**把方法和事实分开**：
+Mini-Harness 的做法是**把方法和事实分开**：
 
-- **方法放在 Atlas Core**：通用的 workflow、skill、规则、模板和校验器，由团队统一维护、按版本发布。
+- **方法放在 Mini-Harness**：通用的 workflow、skill、规则、模板和校验器，由团队统一维护、按版本发布。
 - **事实放在项目和服务里**：产品事实、需求周期和交付证据由项目 Harness 保存；源码、长期契约和运行事实由服务仓库保存。
 - **确认交给真实负责人**：工具负责检查结构和证据，是否通过由各角色负责人明确确认，并记录身份、时间和范围。
 
@@ -37,11 +37,11 @@ Atlas 的做法是**把方法和事实分开**：
 
 | 位置 | 回答的问题 | 保存什么 |
 | --- | --- | --- |
-| **Atlas Core**（本仓库） | 团队怎么做研发？ | 角色工作流、阶段技能、规则、模板、Schema、校验器与通用 Hook |
+| **Mini-Harness**（本仓库） | 团队怎么做研发？ | 角色工作流、阶段技能、规则、模板、Schema、校验器与通用 Hook |
 | **项目 Harness** | 这个项目要做什么、做到了哪一步？ | 项目上下文、服务目录、需求周期、PRD、共用原型、阶段产物、`Gate.yaml` |
 | **服务仓库** | 代码和契约实际是什么？ | 源码、构建配置、长期接口契约、数据与部署事实 |
 
-不要把具体项目的 PRD 或服务源码放进 Atlas Core。详见[首次使用与共用约定](使用手册/首次使用与共用约定.md)。
+不要把具体项目的 PRD 或服务源码放进 Mini-Harness。详见[首次使用与共用约定](使用手册/首次使用与共用约定.md)。
 
 ### 角色工作流
 
@@ -93,12 +93,12 @@ flowchart LR
 
 ```text
 我负责<角色>。项目 Harness 位于<路径>，需求版本是<版本>，目标服务是<服务 ID>。
-请先读取项目 AGENTS.md、harness.yaml 和项目锁定的 Atlas Core，
+请先读取项目 AGENTS.md、harness.yaml 和项目锁定的 Mini-Harness，
 确认当前阶段和已有产物，再按对应 workflow 执行<本次任务>。
 完成后返回产物位置、实际验证结果、缺口和下一步交接对象。
 ```
 
-Agent 会从项目 `AGENTS.md` 进入 Atlas 入口，按角色读取 workflow，再逐阶段读取 skill、规则和模板。各角色的可复制指令见[使用手册](使用手册/使用手册导航.md)。
+Agent 会从项目 `AGENTS.md` 进入 Mini-Harness 入口，按角色读取 workflow，再逐阶段读取 skill、规则和模板。各角色的可复制指令见[使用手册](使用手册/使用手册导航.md)。
 
 ### 3. 校验
 
@@ -117,7 +117,7 @@ Gate 和 PRD 修订分别使用 `role_gates.py`、`prd_revision.py`，参数可�
 - **机器检查不等于确认**：校验通过、Hook 存在或模板齐全，都不代表业务 Gate 已确认、外部系统已接通或已获得发布许可。
 - **角色确认不等于上线**：Gate 确认不代表测试完成、发布或部署；外部待办必须如实记录，不能写成已执行。
 - **角色不扩大权限**：产品和 UI 只修改项目共用原型，不修改真实前后端代码；TestHub 远程同步和执行需要明确授权及真实配置；Jenkins 不由 Review、Gate 或 Hook 自动触发。
-- **采集默认只存本地**：项目 Hook 采集项目、Git 用户、脱敏并截断后的问答、Token 用量以及访问过的 Atlas 资源；未配置 `HARNESS_TELEMETRY_URL` 时只写本地队列，不上传。Hook 不承担工作流或 Gate 的强制执行。详见 [Hook 说明](.harness/hooks/README.md)。
+- **采集默认只存本地**：项目 Hook 采集项目、Git 用户、脱敏并截断后的问答、Token 用量以及访问过的 Mini-Harness 资源；未配置 `HARNESS_TELEMETRY_URL` 时只写本地队列，不上传。Hook 不承担工作流或 Gate 的强制执行。详见 [Hook 说明](.harness/hooks/README.md)。
 - **凭据不进仓库**：真实凭据只保存在被忽略的本地配置中，不进入模板、文档、命令参数或日志。
 
 ## 仓库结构
@@ -137,10 +137,10 @@ Gate 和 PRD 修订分别使用 `role_gates.py`、`prd_revision.py`，参数可�
 
 ## 文档入口
 
-- [Atlas 项目入口](AGENTS.md)：角色工作流路由、能力边界与目录说明
+- [Mini-Harness 项目入口](AGENTS.md)：角色工作流路由、能力边界与目录说明
 - [Core 使用导航](.harness/README.md)：各主题的权威定义位置与工具入口
 - [使用手册](使用手册/使用手册导航.md)：产品、UI、前端、后端、测试、运维、项目维护者与 Core 维护者
 - [项目接入与执行约定](.harness/rules/project-execution.md)
-- [Core 维护约定](docs/core-maintenance.md)：修改 Atlas 自身时阅读
+- [Core 维护约定](docs/core-maintenance.md)：修改 Mini-Harness 自身时阅读
 
 当前 Core 版本和内容锁以 [`.harness/version.lock`](.harness/version.lock) 为准；项目实际采用的版本以项目配置中的精确 pin 为准。

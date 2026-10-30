@@ -25,8 +25,8 @@ class UsageHookTest(unittest.TestCase):
     def test_resource_pattern_matches_harness_directory_boundary(self) -> None:
         for path in (
             ".harness/workflow/backend-workflow.md",
-            "/workspace/Atlas-Harness/.harness/skills/backend/01-plan.md",
-            r"D:\workspace\Atlas-Harness\.harness\rules\review.md",
+            "/workspace/Mini-Harness/.harness/skills/backend/01-plan.md",
+            r"D:\workspace\Mini-Harness\.harness\rules\review.md",
         ):
             with self.subTest(path=path):
                 self.assertIsNotNone(usage_hook.RESOURCE_PATTERN.search(path))
@@ -34,7 +34,7 @@ class UsageHookTest(unittest.TestCase):
             usage_hook.RESOURCE_PATTERN.search("other-harness/workflow/example.md")
         )
         self.assertIsNone(usage_hook.RESOURCE_PATTERN.search(
-            "/workspace/Atlas-Harness/harness/workflow/backend-workflow.md"
+            "/workspace/Mini-Harness/harness/workflow/backend-workflow.md"
         ))
 
     def setUp(self) -> None:
